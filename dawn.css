@@ -27,8 +27,11 @@ body[data-design="dawn"] .home-scene .orb-button:is(:hover,:focus-visible) .orb-
 body[data-design="dawn"] .orb-field{position:absolute;inset:0;transform:translateY(calc(var(--home-progress)*-85px)) scale(calc(1 + var(--home-progress)*.12));opacity:calc(1 - var(--home-progress)*1.1);pointer-events:none;will-change:transform,opacity}
 body[data-design="dawn"] .orb-field .orb-button{pointer-events:auto}
 body[data-design="dawn"] .center-thought{opacity:calc(1 - var(--home-progress)*1.7)}
-body[data-design="dawn"] .home-scene .orb-title{font-size:18px;line-height:1.45;color:var(--cream)}
-body[data-design="dawn"] .orb-description{font-size:14px;line-height:1.5;color:var(--cream);opacity:0}
+body[data-design="dawn"] .home-scene .center-thought h1{font-family:var(--feeling-font,var(--serif));font-weight:var(--feeling-weight,400);font-size:clamp(52px,5.6vw,88px)}
+body[data-design="dawn"] .home-scene .center-thought h1 em{font-family:var(--stuck-font,var(--serif));font-weight:var(--stuck-weight,400)}
+body[data-design="dawn"] :is(.orb-title,.orb-description){font-family:var(--bubble-font,var(--sans))}
+body[data-design="dawn"] .home-scene .orb-title{font-size:19.8px;line-height:1.45;color:var(--cream)}
+body[data-design="dawn"] .orb-description{font-size:15.4px;line-height:1.5;color:var(--cream);opacity:0}
 body[data-design="dawn"] .orb-button:is(:hover,:focus-visible) .orb-description,body[data-design="dawn"] .is-preview .orb-description{opacity:.9}
 body[data-design="dawn"] .orb-wrap{transition:opacity .6s}
 body[data-design="dawn"] .constellation:has(.orb-button:is(:hover,:focus-visible),.is-preview) .orb-wrap:not(:has(.orb-button:is(:hover,:focus-visible))):not(.is-preview){opacity:.7}
@@ -55,8 +58,8 @@ body[data-design="dawn"] .space-layout .path-echo{font-size:14px;max-width:590px
 body[data-design="dawn"] .space-layout .branch-options{gap:30px}
 body[data-design="dawn"] .space-layout .branch-orb{width:255px;height:215px}
 body[data-design="dawn"] .space-layout .branch-orb .orb-copy{top:39%;left:10%;width:80%}
-body[data-design="dawn"] .space-layout .branch-orb .orb-title{font-size:18px;max-width:215px}
-body[data-design="dawn"] .space-layout .branch-orb .orb-description{font-size:14px}
+body[data-design="dawn"] .space-layout .branch-orb .orb-title{font-size:19.8px;max-width:215px}
+body[data-design="dawn"] .space-layout .branch-orb .orb-description{font-size:15.4px}
 body[data-design="dawn"] :is(.result-intro,.space-result .result-intro,textarea,.your-words blockquote){font-size:18px;line-height:1.7}
 body[data-design="dawn"] .space-result .space-shell{padding-top:75px;padding-bottom:85px}
 body[data-design="dawn"] .space-result .exercise-list{margin:30px 0}
@@ -69,9 +72,10 @@ body[data-design="dawn"] .result-actions{gap:22px;flex-wrap:wrap;align-items:cen
 body[data-design="dawn"] .board-action{flex-basis:100%;text-align:left;justify-content:flex-start;margin-top:8px;color:var(--cream)}
 body[data-design="dawn"] .dawn-below{position:relative;z-index:2}
 @media(min-width:761px) and (max-width:1100px){
+  body[data-design="dawn"] .home-scene .center-thought h1{font-size:56px}
   body[data-design="dawn"] .space-layout .branch-options{gap:14px}
   body[data-design="dawn"] .space-layout .branch-orb{width:210px;height:225px}
-  body[data-design="dawn"] .space-layout .branch-orb .orb-title{font-size:17px}
+  body[data-design="dawn"] .space-layout .branch-orb .orb-title{font-size:18.7px}
 }
 @media(max-width:760px){
   body[data-design="dawn"] .header-links{gap:9px;align-items:flex-end;flex-direction:column;padding-top:2px}
@@ -85,6 +89,7 @@ body[data-design="dawn"] .dawn-below{position:relative;z-index:2}
   body[data-design="dawn"] .home-scene .orb-description{top:calc(100% + 9px);width:100%}
   body[data-design="dawn"] .home-scene .constellation{gap:24px;padding:0 25px 62px}
   body[data-design="dawn"] .home-scene .center-thought{margin:0 0 12px}
+  body[data-design="dawn"] .home-scene .center-thought h1{font-size:60px}
   body[data-design="dawn"] .keep-going{bottom:6px}
   body[data-design="dawn"] .space-layout{width:calc(100% - 24px);margin-top:6px}
   body[data-design="dawn"] .space-shell{min-height:0;padding:44px 22px 55px}

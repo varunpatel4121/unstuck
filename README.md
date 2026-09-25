@@ -7,6 +7,7 @@ Two homepages for a guided reflection prototype, built with plain HTML, CSS, and
 - `index.html`: the original Dusk homepage and reflection experience.
 - `dawn.html`: the Dawn alternative. Light rises as someone interacts and scrolls, with a response demo and a board below the reflection flow.
 - `compare.html`: interactive previews of both homepages.
+- `typography.html`: three font pairings and separate controls for the Dawn headline and bubble text, shown in a live preview.
 
 ## Run
 
@@ -32,8 +33,8 @@ To share cards and vote totals across visitors, follow [BOARD_SETUP.md](./BOARD_
 
 Dawn’s additions are isolated in `dawn.css`, `dawn.js`, `dawn-demo.css`, `dawn-demo.js`, `board.css`, and `board.js`. Its response demo uses authored examples and sends no text to a model.
 
-Fonts are local Instrument Serif and DM Sans files from Google Fonts, distributed under the SIL Open Font License. There are no analytics or accounts. The optional Google Sheet is the only external data service.
+The homepages use local Instrument Serif and DM Sans files. The typography preview also includes Newsreader, Source Sans 3, Cormorant Garamond, and Manrope. All fonts come from Google Fonts and are distributed under the SIL Open Font License; licenses and source links are included with the assets. There are no analytics or accounts. The optional Google Sheet is the only external data service.
 
 ## Publishing
 
-GitHub Pages publishes the root of the `main` branch. Commit and push changes to update the live site. The original homepage remains at `/`; Dawn is at `/dawn.html`, and the comparison is at `/compare.html`.
+GitHub Pages publishes the root of the `main` branch. Commit and push changes to update the live site. The original homepage remains at `/`; Dawn is at `/dawn.html`, the homepage comparison is at `/compare.html`, and font options are at `/typography.html`.
