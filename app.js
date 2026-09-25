@@ -94,7 +94,7 @@ async function show(view, first = false, selectedCell = null) {
     if (view === 'home') {
       const scene = main.querySelector('.constellation');
       scene.setAttribute('data-transitioning', '');
-      stopOrbit = startOrbit(scene, reducedMotion, isDawn ? { speed: .6, bottomSpace: 36 } : undefined);
+      stopOrbit = startOrbit(scene, reducedMotion, isDawn ? { speed: .6, bottomSpace: 22 } : undefined);
     }
     if (isDawn) main.querySelectorAll('[data-exercise]').forEach(sizeAnswer);
     if (!first) window.scrollTo({top: 0, behavior: 'instant'});
@@ -217,7 +217,7 @@ async function bloomCell(source) {
   try {
     await bloom.animate([
       {transform:'translate(-50%,-50%) scale(.15)',opacity:0},
-      {transform:'translate(-50%,-50%) scale(.6)',opacity:.65,offset:.45},
+      {transform:'translate(-50%,-50%) scale(.6)',opacity:.81,offset:.45},
       {transform:'translate(-50%,-50%) scale(1)',opacity:0},
     ], {duration:500,easing:'ease-out'}).finished;
   } finally { bloom.remove(); }
