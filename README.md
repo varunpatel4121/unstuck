@@ -33,7 +33,7 @@ To share cards and vote totals across visitors, follow [BOARD_SETUP.md](./BOARD_
 
 Dawn’s additions are isolated in `dawn.css`, `dawn.js`, `dawn-demo.css`, `dawn-demo.js`, `board.css`, and `board.js`. Its response demo uses authored examples and sends no text to a model.
 
-The homepages use local Instrument Serif and DM Sans files. The typography preview also includes Newsreader, Source Sans 3, Cormorant Garamond, and Manrope. All fonts come from Google Fonts and are distributed under the SIL Open Font License; licenses and source links are included with the assets. There are no analytics or accounts. The optional Google Sheet is the only external data service.
+Dusk uses local Instrument Serif and DM Sans files. Dawn’s home headline uses Newsreader, with Newsreader Italic for “stuck” and DM Sans for the bubble text. The typography preview also includes Source Sans 3, Cormorant Garamond, and Manrope. All fonts come from Google Fonts and are distributed under the SIL Open Font License; licenses and source links are included with the assets. There are no analytics or accounts. The optional Google Sheet is the only external data service.
 
 ## Publishing
 
