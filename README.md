@@ -33,7 +33,7 @@ To share cards and vote totals across visitors, follow [BOARD_SETUP.md](./BOARD_
 
 Dawn’s additions are isolated in `dawn.css`, `dawn.js`, `dawn-demo.css`, `dawn-demo.js`, `board.css`, and `board.js`. Its response demo uses authored examples and sends no text to a model.
 
-Dusk uses local Instrument Serif and DM Sans files. Dawn’s home headline uses Newsreader, with Newsreader Italic for “stuck” and DM Sans for the bubble text. The typography preview also includes Source Sans 3, Cormorant Garamond, and Manrope. All fonts come from Google Fonts and are distributed under the SIL Open Font License; licenses and source links are included with the assets. There are no analytics or accounts. The optional Google Sheet is the only external data service.
+Dusk uses local Instrument Serif and DM Sans files. Dawn uses a lowercase Loose Thread wordmark in Fraunces, with a bronze loop that opens once on arrival. The center headline uses Newsreader for “I’m feeling” and matching Fraunces Italic for “stuck”; bubble text uses DM Sans. The wordmark settles immediately when reduced motion is enabled. The typography preview also includes Source Sans 3, Cormorant Garamond, and Manrope. The Loose Thread assets and their font license are in `assets/brand/`. All fonts come from Google Fonts and are distributed under the SIL Open Font License; licenses and source links are included with the assets. There are no analytics or accounts. The optional Google Sheet is the only external data service.
 
 ## Publishing
 

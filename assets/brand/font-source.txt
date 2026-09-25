@@ -1,0 +1,9 @@
+Fraunces, Undercase Type
+https://github.com/undercasetype/Fraunces
+Axes: opsz 72, wght 500, SOFT 80, WONK 1. Wordmark glyph subset: unstuck.
+Source CSS: https://fonts.googleapis.com/css2?family=Fraunces%3Aopsz%2Cwght%2CSOFT%2CWONK%4072%2C500%2C80%2C1&text=unstuck&display=swap
+Font: https://fonts.gstatic.com/l/font?kit=6NUu8FyLNQOQZAnv9bYEvCeYdG9Ea92u-l8k_WBbizO8vEc2WT1I7iN7iQcIfJD58ngB1bc5oPgKR_7hM-lyDCz2&skey=2eca4ab215eafb9c&v=v38
+
+Italic: opsz 72, wght 400, SOFT 80, WONK 1. Glyph subset: stuck.
+Source CSS: https://fonts.googleapis.com/css2?family=Fraunces%3Aital%2Copsz%2Cwght%2CSOFT%2CWONK%401%2C72%2C400%2C80%2C1&text=stuck&display=swap
+Font: https://fonts.gstatic.com/l/font?kit=6NUs8FyLNQOQZAnv9ZwNjucMAkn8xNi7emCeyVKqZQihe6kwTK0KRGpJdt9hFwpX9W37ll9_qv8oRcTnYod_FCv3ew&skey=a711426ad14db1be&v=v38

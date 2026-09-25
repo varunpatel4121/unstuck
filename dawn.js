@@ -2,6 +2,7 @@ import { mountDawnDemo } from './dawn-demo.js?v=dawn-1';
 import { mountBoard } from './board.js?v=dawn-1';
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+settleThread();
 const demo = document.querySelector('#sometimes');
 const board = document.querySelector('#board');
 mountDawnDemo(demo, { reducedMotion });
@@ -52,3 +53,31 @@ document.addEventListener('click',event => {
   if (heading) { heading.tabIndex = -1; heading.focus({preventScroll:true}); }
 });
 paintLight();
+
+// Open the small loop once. The final path is also the no-script default.
+function settleThread() {
+  const thread = document.querySelector('.loose-thread-line');
+  if (!thread || reducedMotion.matches) return;
+  const relaxed = thread.getAttribute('d');
+  const tucked = [1,56,14,62,33,57,46,41,54,28,43,21,38,30,27,48,58,55,80,47,109,39,125,60,146,57];
+  const open = [1,56,18,70,37,68,51,43,67,14,44,2,34,17,16,49,57,53,78,46,104,38,120,70,154,61];
+  let frame = 0;
+  let started;
+  function finish() {
+    cancelAnimationFrame(frame);
+    thread.setAttribute('d', relaxed);
+    reducedMotion.removeEventListener('change', finish);
+  }
+  function draw(now) {
+    started ??= now;
+    const progress = Math.max(0, Math.min(1, (now - started - 250) / 3000));
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const points = tucked.map((value, index) => (value + (open[index] - value) * ease).toFixed(2));
+    const curves = [2,8,14,20].map(index => `C${points.slice(index,index + 6).join(' ')}`).join('');
+    thread.setAttribute('d', `M${points.slice(0,2).join(' ')}${curves}`);
+    if (progress < 1) frame = requestAnimationFrame(draw);
+    else finish();
+  }
+  reducedMotion.addEventListener('change', finish, {once:true});
+  frame = requestAnimationFrame(draw);
+}

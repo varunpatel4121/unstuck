@@ -1,5 +1,6 @@
 const fonts = {
   instrument: { family:'Instrument Serif', weight:400 },
+  fraunces: { family:'Fraunces', weight:400 },
   newsreader: { family:'Newsreader', weight:400 },
   cormorant: { family:'Cormorant Garamond', weight:500 },
   dm: { family:'DM Sans', weight:400 },

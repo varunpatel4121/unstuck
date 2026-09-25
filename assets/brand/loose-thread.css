@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./fraunces-wordmark.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fraunces-stuck-italic.woff2') format('woff2');
+}
+
+body[data-design="dawn"] .wordmark.loose-thread {
+  --brand-size: clamp(42px, 3.45vw, 52px);
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 60px;
+  padding: 4px 0;
+  color: #f0e2c5;
+  isolation: isolate;
+  border-radius: 6px;
+}
+.loose-thread::before {
+  content: '';
+  position: absolute;
+  inset: -30px -30px -25px -32px;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 45% 54%, #bc824a24, #bc824a08 48%, transparent 72%);
+  filter: blur(13px);
+}
+.loose-thread-word {
+  font: 500 var(--brand-size)/1 'Fraunces', Georgia, serif;
+  letter-spacing: .005em;
+}
+.loose-thread-tail {
+  display: block;
+  width: calc(var(--brand-size) * 2.02);
+  height: var(--brand-size);
+  margin-left: -1px;
+  overflow: visible;
+}
+.loose-thread-line {
+  fill: none;
+  stroke: #d39a62;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke .7s ease;
+}
+.loose-thread:is(:hover, :focus-visible) .loose-thread-line { stroke: #e4b978; }
+@media (min-width: 1550px) {
+  body[data-design="dawn"] .masthead { padding-top: 35px; }
+}
+@media (max-width: 760px) {
+  body[data-design="dawn"] .wordmark.loose-thread { --brand-size: 35px; min-height: 48px; }
+  .loose-thread-tail { width: calc(var(--brand-size) * 1.85); }
+}
+@media (max-width: 380px) {
+  body[data-design="dawn"] .masthead { padding-left: 20px; padding-right: 20px; }
+  body[data-design="dawn"] .wordmark.loose-thread { --brand-size: 29px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loose-thread-line { transition: none; }
+}
