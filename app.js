@@ -1,5 +1,5 @@
 import { paths } from './paths.js';
-import { startOrbit } from './orbit.js';
+import { startOrbit } from './orbit.js?v=orbit-2';
 import { transitionCell } from './cell-transition.js';
 
 const main = document.querySelector('#main');
@@ -94,7 +94,7 @@ async function show(view, first = false, selectedCell = null) {
     if (view === 'home') {
       const scene = main.querySelector('.constellation');
       scene.setAttribute('data-transitioning', '');
-      stopOrbit = startOrbit(scene, reducedMotion, isDawn ? { speed: .6, bottomSpace: 22 } : undefined);
+      stopOrbit = startOrbit(scene, reducedMotion, isDawn ? { speed: .66, bottomSpace: 22, evenSpacing: true } : undefined);
     }
     if (isDawn) main.querySelectorAll('[data-exercise]').forEach(sizeAnswer);
     if (!first) window.scrollTo({top: 0, behavior: 'instant'});
