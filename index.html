@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#20251d">
+  <meta name="description" content="A little room to understand what feels stuck, and find a place to begin.">
+  <title>Unstuck</title>
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/fonts.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./experience.css">
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"><div class="ambient-light"></div><div class="grain"></div></div>
+  <a class="skip-link" href="#main">Skip to the choices</a>
+  <header class="masthead">
+    <a href="#" class="wordmark" aria-label="Get Unstuck, back to the beginning">
+      <span class="brand-get">get</span><span class="brand-name">Unstuck<span class="brand-spark" aria-hidden="true"></span></span>
+    </a>
+    <button class="about-link" id="about-open">About this space <span aria-hidden="true">↗</span></button>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+    <button class="close-dialog" id="about-close" aria-label="Close about this space">×</button>
+    <p class="eyebrow">ABOUT THIS SPACE</p>
+    <h2 id="about-title">You can begin<br><em>where you are.</em></h2>
+    <p>Unstuck is an early exploration of how a few thoughtful questions might help us understand what feels difficult and find a way into it.</p>
+    <p>This version uses guided questions. It isn’t connected to an AI model. Your writing stays in this browser tab and disappears when you reload or close it, unless you choose to download it.</p>
+    <p class="about-credit">A project by Varun Patel<br><span>Generative AI Studio · Wharton</span></p>
+    <button class="text-button" id="about-return">Back to the space <span aria-hidden="true">↗</span></button>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
