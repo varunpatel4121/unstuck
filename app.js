@@ -3,10 +3,11 @@ import { startOrbit } from './orbit.js';
 import { transitionCell } from './cell-transition.js';
 
 const main = document.querySelector('#main');
+const isDawn = document.body.dataset.design === 'dawn';
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const coarsePointer = matchMedia('(hover: none)');
 let stopOrbit = () => {};
-const state = { view: 'home', path: null, option: null, preview: null, busy: false, drafts: new Map() };
+const state = { view: 'home', path: null, option: null, preview: null, busy: false, drafts: new Map(), exercises: new Map() };
 const escapeHTML = (value = '') => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const skin = '<span class="orb-aura"></span><span class="orb-skin"></span><span class="orb-line"></span><span class="orb-rim" aria-hidden="true"></span>';
 
@@ -18,10 +19,11 @@ function orb(item, kind) {
 }
 
 function home() {
+  const cells = paths.map((path, i) => `<div class="orb-wrap"${isDawn ? ` style="--tone:${pathTones[path.id]};--tilt:${[-7,6,-4,5,8][i]}deg;--delay:${-i*5}s"` : ''}>${orb(path, 'path')}</div>`).join('');
   return `<section aria-label="Find a place to begin" class="home-scene"><div class="constellation">
     <div class="center-thought"><h1>I'm feeling<br><em>stuck</em></h1></div>
-    ${paths.map(path => `<div class="orb-wrap">${orb(path, 'path')}</div>`).join('')}
-  </div></section>`;
+    ${isDawn ? `<div class="orb-field">${cells}</div>` : cells}
+  </div>${isDawn ? '<button class="keep-going" data-scroll-sometimes>keep going <span aria-hidden="true">↓</span></button>' : ''}</section>`;
 }
 
 const pathTones = {
@@ -48,6 +50,8 @@ function branch() {
 
 function draftKey() { return `${state.path.id}:${state.option.id}`; }
 function currentDraft() { return state.drafts.get(draftKey()) || ''; }
+function currentExercises() { return state.exercises.get(draftKey()) || ['', '', '']; }
+function sizeAnswer(field) { field.style.height = 'auto'; field.style.height = `${field.scrollHeight}px`; }
 
 function reflect() {
   const option = state.option;
@@ -59,10 +63,14 @@ function reflect() {
 function result() {
   const option = state.option;
   const written = currentDraft();
+  const answers = currentExercises();
+  const exercises = option.exercise.map((item, index) => isDawn
+    ? `<li class="fillable-exercise"><span class="step-number" aria-hidden="true">0${index + 1}</span><div class="exercise-answer"><label for="exercise-${index}">${escapeHTML(item)}</label><textarea id="exercise-${index}" data-exercise="${index}" rows="1" maxlength="2000" placeholder="Your words…">${escapeHTML(answers[index])}</textarea></div></li>`
+    : `<li><span class="step-number" aria-hidden="true">0${index + 1}</span><span>${escapeHTML(item)}</span></li>`).join('');
   return space(`<p class="eyebrow">SOMETHING YOU COULD TRY</p><h1 tabindex="-1">${escapeHTML(option.stepTitle)}</h1><p class="result-intro">${escapeHTML(option.stepText)}</p>
-    <ol class="exercise-list">${option.exercise.map((item, index) => `<li><span class="step-number" aria-hidden="true">0${index + 1}</span><span>${escapeHTML(item)}</span></li>`).join('')}</ol>
+    <ol class="exercise-list">${exercises}</ol>
     ${written.trim() ? `<details class="your-words"><summary>Your words</summary><blockquote>${escapeHTML(written)}</blockquote></details>` : ''}
-    <div class="result-actions"><button class="primary-button" id="save-reflection">Keep this reflection <span aria-hidden="true">↓</span></button><button class="text-button" data-view="home">Try another way in <span aria-hidden="true">↗</span></button></div>`, 'reflect', 'Back to your words', 'result');
+    <div class="result-actions"><button class="primary-button" id="save-reflection">Keep this reflection <span aria-hidden="true">↓</span></button><button class="text-button" data-view="home">Try another way in <span aria-hidden="true">↗</span></button>${isDawn ? '<button class="text-button board-action" data-scroll-board>Add your moment to the board <span aria-hidden="true">↓</span></button>' : ''}</div>`, 'reflect', 'Back to your words', 'result');
 }
 
 async function show(view, first = false, selectedCell = null) {
@@ -77,16 +85,23 @@ async function show(view, first = false, selectedCell = null) {
     state.preview = null;
     state.view = view;
     document.body.classList.toggle('is-home', view === 'home');
+    if (isDawn) {
+      document.body.dataset.view = view;
+      document.body.style.setProperty('--lift', ({home:0, branch:.35, reflect:.7, result:1})[view]);
+    }
     main.classList.remove('view-leave', 'view-enter');
     main.innerHTML = ({home, branch, reflect, result}[view])();
     if (view === 'home') {
       const scene = main.querySelector('.constellation');
       scene.setAttribute('data-transitioning', '');
-      stopOrbit = startOrbit(scene, reducedMotion);
+      stopOrbit = startOrbit(scene, reducedMotion, isDawn ? { speed: .6, bottomSpace: 36 } : undefined);
     }
+    if (isDawn) main.querySelectorAll('[data-exercise]').forEach(sizeAnswer);
     if (!first) window.scrollTo({top: 0, behavior: 'instant'});
+    if (isDawn) document.dispatchEvent(new CustomEvent('unstuck:viewchange', {detail:{view}}));
   };
   try {
+    if (isDawn && opening && source && !reducedMotion.matches) await bloomCell(source);
     await transitionCell({main, source, render, reducedMotion, opening,
       destination: view === 'home' ? `.orb-button[data-path="${state.path?.id}"]` : '.space-surface'});
   } finally {
@@ -142,10 +157,24 @@ main.addEventListener('click', event => {
 
 main.addEventListener('input', event => {
   if (event.target.id === 'reflection-input') state.drafts.set(draftKey(), event.target.value);
+  if (isDawn && event.target.hasAttribute('data-exercise')) {
+    const answers = [...currentExercises()];
+    answers[Number(event.target.dataset.exercise)] = event.target.value;
+    state.exercises.set(draftKey(), answers);
+    sizeAnswer(event.target);
+  }
 });
 
+if (isDawn) {
+  let answerResizeFrame = 0;
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(answerResizeFrame);
+    answerResizeFrame = requestAnimationFrame(() => main.querySelectorAll('[data-exercise]').forEach(sizeAnswer));
+  });
+}
+
 window.addEventListener('beforeunload', event => {
-  if ([...state.drafts.values()].some(value => value.trim())) {
+  if ([...state.drafts.values()].some(value => value.trim()) || [...state.exercises.values()].some(answers => answers.some(value => value.trim()))) {
     event.preventDefault();
     event.returnValue = '';
   }
@@ -164,7 +193,7 @@ document.querySelector('#about-return').addEventListener('click', () => dialog.c
 dialog.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); }});
 
 function saveReflection() {
-  const text = ['UNSTUCK', '', state.path.label, state.option.label, '', state.option.prompt, currentDraft().trim() || '(Reflected without writing.)', '', state.option.stepTitle, state.option.stepText, '', ...state.option.exercise.map((item, index) => `${index + 1}. ${item}`)].join('\n');
+  const text = ['UNSTUCK', '', state.path.label, state.option.label, '', state.option.prompt, currentDraft().trim() || '(Reflected without writing.)', '', state.option.stepTitle, state.option.stepText, '', ...state.option.exercise.map((item, index) => `${index + 1}. ${item}${isDawn ? `\n${currentExercises()[index] || '(Left blank.)'}` : ''}`)].join('\n');
   const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
@@ -175,6 +204,23 @@ function saveReflection() {
   toast.textContent = 'Your reflection is ready to keep.';
   toast.classList.add('visible');
   setTimeout(() => toast.classList.remove('visible'), 3500);
+}
+
+async function bloomCell(source) {
+  const bounds = source.getBoundingClientRect();
+  const bloom = document.createElement('div');
+  bloom.className = 'dawn-bloom';
+  bloom.setAttribute('aria-hidden', 'true');
+  bloom.style.left = `${bounds.left + bounds.width / 2}px`;
+  bloom.style.top = `${bounds.top + bounds.height / 2}px`;
+  document.body.append(bloom);
+  try {
+    await bloom.animate([
+      {transform:'translate(-50%,-50%) scale(.15)',opacity:0},
+      {transform:'translate(-50%,-50%) scale(.6)',opacity:.65,offset:.45},
+      {transform:'translate(-50%,-50%) scale(1)',opacity:0},
+    ], {duration:500,easing:'ease-out'}).finished;
+  } finally { bloom.remove(); }
 }
 
 show('home', true);

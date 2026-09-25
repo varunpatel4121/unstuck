@@ -1,26 +1,39 @@
 # Unstuck
 
-A local, responsive prototype of a guided reflection experience. The design uses deep olive, ivory, and warm bronze, with slowly orbiting organic shapes and five starting points.
+Two homepages for a guided reflection prototype, built with plain HTML, CSS, and ES-module JavaScript. No build step is needed.
+
+## Open a version
+
+- `index.html`: the original Dusk homepage and reflection experience.
+- `dawn.html`: the Dawn alternative. Light rises as someone interacts and scrolls, with a response demo and a board below the reflection flow.
+- `compare.html`: interactive previews of both homepages.
 
 ## Run
 
-From this folder, run `python3 -m http.server 8765 --bind 127.0.0.1`, then open http://127.0.0.1:8765.
+From this folder, run `python3 -m http.server 8765 --bind 127.0.0.1`, then open http://127.0.0.1:8765/compare.html.
 
 ## What works
 
-- Five starting points with stable labels, personal hover text, a bronze rim highlight, and touch previews.
-- The selected cell expands into an organic enclosure that continues through questions, writing, and exercises.
-- Three distinct follow-up choices per starting point, plus an open writing path.
-- Reflection prompts, an optional writing space, and prewritten exercises.
-- Back navigation, reflection downloads, reduced-motion support, and an orbit that settles on hover or keyboard focus.
-- Local typefaces; no external requests, analytics, accounts, or stored journal entries.
+Both versions have five starting points, hover and touch previews, a cell that opens into the reflection space, follow-up questions, optional writing, reflection downloads, keyboard navigation, and reduced-motion support.
 
-This version uses prestructured prompts and is not connected to an AI model. Writing is held only in memory in the current browser tab. Reloading or closing the tab clears it. Downloading a reflection saves a text file on the visitor's device.
+Dawn adds changing light, fillable sentence starters included in downloads, four authored response examples, a board of moments, and a poll. The original Dusk homepage keeps its existing design and flow.
 
-`paths.js` contains the reflection copy. `style.css` controls the visual design and motion. `app.js` handles the experience. `experience.css` styles the expanded cell, and `cell-transition.js` handles the continuous surface transitions.
+This is a prototype with prewritten prompts, not a connected AI conversation. Private reflection writing stays in memory in the current tab; reloading or closing the tab clears it. Downloading a reflection saves a text file on the visitor’s device.
 
-Fonts: Instrument Serif and DM Sans, from Google Fonts. They are distributed under the SIL Open Font License.
+## Board storage
+
+The Dawn board starts in local mode: new cards and a visitor’s vote are saved in that browser’s localStorage. If browser storage is unavailable, they last only for the current visit. Six example cards signed Varun appear for everyone.
+
+To share cards and vote totals across visitors, follow [BOARD_SETUP.md](./BOARD_SETUP.md), deploy `apps-script.gs` to Google Apps Script, and set `SHEET_URL` in `board.js`. The interface explains whether a submission goes to the shared board or stays in the browser. Private reflection writing is never sent to the board automatically.
+
+## Files
+
+`paths.js` contains the original reflection copy. `app.js` handles both reflection experiences, `orbit.js` positions the home cells, and `cell-transition.js` handles the expanding surface. `style.css` and `experience.css` define the original design.
+
+Dawn’s additions are isolated in `dawn.css`, `dawn.js`, `dawn-demo.css`, `dawn-demo.js`, `board.css`, and `board.js`. Its response demo uses authored examples and sends no text to a model.
+
+Fonts are local Instrument Serif and DM Sans files from Google Fonts, distributed under the SIL Open Font License. There are no analytics or accounts. The optional Google Sheet is the only external data service.
 
 ## Publishing
 
-The website is published with GitHub Pages from the root of the `main` branch. Commit and push changes to update the live site.
+GitHub Pages publishes the root of the `main` branch. Commit and push changes to update the live site. The original homepage remains at `/`; Dawn is at `/dawn.html`, and the comparison is at `/compare.html`.

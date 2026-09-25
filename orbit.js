@@ -1,5 +1,5 @@
 // Shared phase keeps all five cells evenly spaced; only their positions rotate.
-export function startOrbit(scene, reducedMotion) {
+export function startOrbit(scene, reducedMotion, { speed = 1, bottomSpace = 0 } = {}) {
   const cells = [...scene.querySelectorAll('.orb-wrap')];
   const compact = matchMedia('(max-width: 760px)');
   let frame = 0;
@@ -25,7 +25,7 @@ export function startOrbit(scene, reducedMotion) {
     const largestWidth = Math.max(...cells.map(cell => cell.offsetWidth));
     const largestHeight = Math.max(...cells.map(cell => cell.offsetHeight));
     radiusX = Math.max(0, (scene.clientWidth - largestWidth) / 2 - 32);
-    radiusY = Math.max(0, (scene.clientHeight - largestHeight) / 2 - 28);
+    radiusY = Math.max(0, (scene.clientHeight - largestHeight) / 2 - 28 - bottomSpace);
     paint();
   }
 
@@ -33,7 +33,7 @@ export function startOrbit(scene, reducedMotion) {
     const elapsed = previous ? Math.min(now - previous, 64) : 0;
     previous = now;
     if (!engaged && !scene.hasAttribute('data-transitioning') && !reducedMotion.matches && !document.hidden) {
-      phase += elapsed * Math.PI * 2 / (compact.matches ? 24000 : 144000);
+      phase += elapsed * speed * Math.PI * 2 / (compact.matches ? 24000 : 144000);
       paint();
     }
     frame = requestAnimationFrame(tick);

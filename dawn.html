@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1b2019">
+  <meta name="description" content="A little room to understand what feels stuck, and find a place to begin.">
+  <title>Unstuck · Dawn</title>
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/fonts.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./experience.css">
+  <link rel="stylesheet" href="./dawn.css?v=dawn-1">
+  <link rel="stylesheet" href="./dawn-demo.css?v=dawn-1">
+  <link rel="stylesheet" href="./board.css?v=dawn-1">
+</head>
+<body data-design="dawn" data-view="home">
+  <div class="atmosphere" aria-hidden="true"><div class="ambient-light"></div><div class="grain"></div></div>
+  <a class="skip-link" href="#main">Skip to the choices</a>
+  <header class="masthead">
+    <a href="#" class="wordmark" aria-label="Get Unstuck, back to the beginning">
+      <span class="brand-get">get</span><span class="brand-name">Unstuck<span class="brand-spark" aria-hidden="true"></span></span>
+    </a>
+    <div class="header-links"><button class="about-link pin-link" data-scroll-board>Pin a moment <span aria-hidden="true">↓</span></button><button class="about-link" id="about-open">About</button></div>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <div class="dawn-below">
+    <section id="sometimes" class="dawn-demo" aria-label="Four ways to find a way forward"></section>
+    <section id="board" class="moment-board" aria-label="Pin a moment"></section>
+  </div>
+  <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+    <button class="close-dialog" id="about-close" aria-label="Close about this space">×</button>
+    <p class="eyebrow">ABOUT THIS SPACE</p>
+    <h2 id="about-title">You can begin<br><em>where you are.</em></h2>
+    <p>Unstuck is an early exploration of how a few thoughtful questions might help us understand what feels difficult and find a way into it.</p>
+    <p>This is a sketch of the feeling. The real version would be a conversation. Your private reflection stays in this tab unless you download it. The board explains where a moment will be saved before you pin it.</p>
+    <p class="about-credit">A project by Varun Patel<br><span>Generative AI Studio · Wharton</span></p>
+    <button class="text-button" id="about-return">Back to the space <span aria-hidden="true">↗</span></button>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script type="module" src="./app.js?v=dawn-1"></script>
+  <script type="module" src="./dawn.js?v=dawn-1"></script>
+</body>
+</html>
