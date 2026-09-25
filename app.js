@@ -20,8 +20,12 @@ function orb(item, kind) {
 
 function home() {
   const cells = paths.map((path, i) => `<div class="orb-wrap"${isDawn ? ` style="--tone:${pathTones[path.id]};--tilt:${[-7,6,-4,5,8][i]}deg;--delay:${-i*5}s"` : ''}>${orb(path, 'path')}</div>`).join('');
+  const stuck = isDawn ? `<span class="stuck-enclosure"><em>stuck</em><svg class="stuck-frame" viewBox="0 0 260 106" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path class="stuck-frame-edge" d="M257 76V8Q257 3 252 3H8Q3 3 3 8V97Q3 102 8 102H220"/>
+    <path class="stuck-frame-thread" d="M220 102C232 102 236 113 247 115C262 118 279 97 270 91C258 84 250 102 264 112C284 128 306 110 328 121"/>
+  </svg></span>` : '<em>stuck</em>';
   return `<section aria-label="Find a place to begin" class="home-scene"><div class="constellation">
-    <div class="center-thought"><h1>I'm feeling<br><em>stuck</em></h1></div>
+    <div class="center-thought"><h1>I'm feeling<br>${stuck}</h1></div>
     ${isDawn ? `<div class="orb-field">${cells}</div>` : cells}
   </div>${isDawn ? '<button class="keep-going" data-scroll-sometimes>keep going <span aria-hidden="true">↓</span></button>' : ''}</section>`;
 }
